@@ -114,7 +114,47 @@ module AnyAdvisor
       end
     end
 
+    describe '#aws_region' do
+      it 'defaults to us-east-1' do
+        Configuration.new.aws_region = 'us-east-1'
+      end
+    end
 
+    describe '#aws_region=' do
+      it 'can set a value' do
+        config = Configuration.new
+        config.aws_region = 'us-east-1'
+        expect(config.aws_region).to eq('us-east-1')
+      end
+    end
+
+    describe '#aws_akid' do
+      it 'defaults to 12345678' do
+        Configuration.new.aws_akid = '12345678'
+      end
+    end
+
+    describe '#aws_akid=' do
+      it 'can set a value' do
+        config = Configuration.new
+        config.aws_akid = '12345678'
+        expect(config.aws_akid).to eq('12345678')
+      end
+    end
+
+    describe '#aws_secret' do
+      it 'defaults to 12345678' do
+        Configuration.new.aws_secret = '12345678'
+      end
+    end
+
+    describe '#aws_secret=' do
+      it 'can set a value' do
+        config = Configuration.new
+        config.aws_secret = '12345678'
+        expect(config.aws_secret).to eq('12345678')
+      end
+    end
 
   end
 end

@@ -50,6 +50,9 @@ AnyAdvisor.configure do |config|
   config.point_size = 50
   config.font_color = '#fff'
   config.font_family = 'Times'
+  config.aws_region = 'us-east-1'
+  config.aws_akid = '12345678'
+  config.aws_secret = '12345678'
 end
 ```
 

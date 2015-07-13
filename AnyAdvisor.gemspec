@@ -27,5 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'nokogiri', '~> 1.6.6.2'
   spec.add_dependency 'engtagger', '~> 0.2.0'
   spec.add_dependency 'rmagick'
+  spec.add_dependency 'aws-sdk', '~> 2.1.4'
 end
 
