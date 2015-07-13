@@ -36,6 +36,23 @@ page.top_review.get
 AnyAdvisor::Image.new('Oh captain my Captain').generate
 ```
 
+## Options
+
+In `config/initializers/any_advisor.rb`:
+
+```ruby
+# Defaul Values
+AnyAdvisor.configure do |config|
+  config.export_image_width = 500
+  config.export_image_path = './any_advisor.jpg'
+  config.text_box_width = 350
+  config.default_image_url = nil
+  config.point_size = 50
+  config.font_color = '#fff'
+  config.font_family = 'Times'
+end
+```
+
 
 ## Development
 

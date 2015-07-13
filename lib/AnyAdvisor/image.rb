@@ -1,34 +1,37 @@
-require "RMagick"
+require 'RMagick'
 require 'open-uri'
 
 require 'pry-rails' #dev
 
 module AnyAdvisor
 	class Image
+    attr_accessor :config
 
-		def initialize(body)
+		def initialize(body, config = Configuration.new)
 			@body = body
+      @config = config
 		end
 
 		def generate
 			begin
-				img = Magick::Image.read('http://media-cdn.tripadvisor.com/media/photo-o/03/47/94/63/chania-diving-center.jpg').first
+        # config.default_image_url = 'http://media-cdn.tripadvisor.com/media/photo-o/03/47/94/63/chania-diving-center.jpg'
+				img = Magick::Image.read(config.default_image_url).first
 
         # Create a new image in memory with transparent canvas
         mark = Magick::Image.new(img.rows, img.columns) {self.background_color = "none"}
         draw = Magick::Draw.new
 
         # draw is used to add elements to an image like text
-        draw.annotate(mark, 0, 0, 0, 0, fit_text(@body, 350)) do
+        draw.annotate(mark, 0, 0, 0, 0, fit_text(@body, config.text_box_width)) do
           draw.gravity = Magick::CenterGravity
-          draw.pointsize = 50
-          # draw.font_family = "Times" # set font
-          draw.fill = "white" # set text color
+          draw.pointsize = config.point_size
+          # draw.font_family = config.font_family # set font
+          draw.fill =  config.font_color # set text color
           draw.stroke = "none" # remove stroke
         end
 
         img = img.dissolve(mark, 0.9, 0.9, Magick::CenterGravity)
-        img.write('./test.jpg')
+        img.write(config.export_image_path)
 			rescue	StandardError => e
 				e.message
 			end
@@ -37,11 +40,12 @@ module AnyAdvisor
 		# Fit text in Frame #
 		def text_fit?(text, width)
 			begin
-				tmp_image = Magick::Image.new(width, 500) {self.background_color = 'none'}
+        binding.pry
+				tmp_image = Magick::Image.new(width, config.export_image_width) {self.background_color = 'none'}
 				drawing = Magick::Draw.new
 				drawing.annotate(tmp_image, 0, 0, 0, 0, text) { |txt|
-					txt.gravity = Magick::NorthGravity
-					txt.pointsize = 22
+					# txt.gravity = Magick::NorthGravity
+					# txt.pointsize = 22
 					# txt.fill = "black"
 					# txt.font_weight = Magick::BoldWeight
 				}

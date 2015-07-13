@@ -6,12 +6,14 @@ require 'pry-rails' #dev
 
 module AnyAdvisor
 	class TopReviewRequest
+    attr_accessor :config
 
 		attr_reader :score, :body
 		Review = Struct.new(:score, :body)
 
-		def initialize(url)
+		def initialize(url, config = Configuration.new)
 			@url = url
+      @config = config
 		end
 
 		def get
@@ -28,7 +30,7 @@ module AnyAdvisor
 					if has_five_stars?(review)
 					score = 0
 
-					truncated_review = review.css('div.entry').css('p').text.truncate_words(20)
+					truncated_review = review.css('div.entry').css('p').text.truncate_words(config.truncation_limit)
 					tagged = @tagger.add_tags(truncated_review)
 					adj = @tagger.get_adjectives(tagged)
 
