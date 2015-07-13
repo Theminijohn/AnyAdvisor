@@ -20,11 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+page = AnyAdvisor::Client.new(page_url)
+
+# => [ReviewsRequest]
+# => Returns all 5★ Reviews
+page.reviews.get
+
+# => [ReviewRequest]
+# => Returns Top Review based on Score + Image
+page.top_review.get
+
+# => [Image]
+# => Returns an Image with the text provided
+AnyAdvisor::Image.new('Oh captain my Captain').generate
+```
+
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+- You have a `rake console` with a `reload!` method.
+- You'll need `ImageMagick' 
+- If you get an `Magick::ImageMagickError: unable to read font` try: `brew install gs`
+
 
 
 ## Contributing

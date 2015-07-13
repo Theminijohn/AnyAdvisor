@@ -1,5 +1,5 @@
 require "AnyAdvisor/version"
-require 'active_support/core_ext/string/inflections'
+require 'active_support/all'
 
 module AnyAdvisor
 end

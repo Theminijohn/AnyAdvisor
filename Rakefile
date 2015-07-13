@@ -8,5 +8,15 @@ end
 task default: :spec
 
 task :console do
-  exec "irb -r mygem -I ./lib"
+  require 'irb'
+  require 'irb/completion'
+  require 'anyadvisor'
+
+  def reload!
+    files = $LOADED_FEATURES.select { |feat| feat =~ /\/AnyAdvisor\//  }
+    files.each { |file| load file  }
+  end
+
+  ARGV.clear
+  IRB.start
 end
