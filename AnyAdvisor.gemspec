@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{ Scrape Tripadvisor Reviews, optionally export to Image }
   spec.description   = %q{ Scrapes Tripadvisor Reviews and scores them based on a simple adjectives in sentence point System. Optionally you can Export a review to an Image }
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/Theminijohn/AnyAdvisor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
