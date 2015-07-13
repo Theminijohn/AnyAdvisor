@@ -156,5 +156,19 @@ module AnyAdvisor
       end
     end
 
+    describe '#aws_bucket' do
+      it 'defaults to anyadvisor' do
+        Configuration.new.aws_bucket= 'anyadvisor'
+      end
+    end
+
+    describe '#aws_bucket=' do
+      it 'can set a value' do
+        config = Configuration.new
+        config.aws_bucket= 'anyadvisor'
+        expect(config.aws_bucket).to eq('anyadvisor')
+      end
+    end
+
   end
 end

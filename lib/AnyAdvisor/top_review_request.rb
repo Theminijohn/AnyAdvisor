@@ -8,8 +8,8 @@ module AnyAdvisor
 	class TopReviewRequest
     attr_accessor :config
 
-		attr_reader :score, :body
-		Review = Struct.new(:score, :body)
+		attr_reader :score, :body, :image_url
+		Review = Struct.new(:score, :body, :image_url)
 
 		def initialize(url, config = Configuration.new)
 			@url = url
@@ -50,7 +50,11 @@ module AnyAdvisor
 			end
 
 			# Return
-			five_star_reviews.sort! { |x, y| x["score"] <=> y["score"]  }.last
+			review = five_star_reviews.sort! { |x, y| x["score"] <=> y["score"]  }.last
+      image_url = AnyAdvisor::Image.new(review.body).generate
+      review.image_url = image_url
+
+      review
 			rescue StandardError => e
 				e.message
 			end

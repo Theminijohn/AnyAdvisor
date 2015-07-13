@@ -53,6 +53,7 @@ AnyAdvisor.configure do |config|
   config.aws_region = 'us-east-1'
   config.aws_akid = '12345678'
   config.aws_secret = '12345678'
+  config.aws_bucket = 'anyadvisor'
 end
 ```
 

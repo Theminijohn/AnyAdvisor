@@ -14,7 +14,7 @@ module AnyAdvisor
 
 		def generate
 			begin
-        config.default_image_url = 'https://s3.amazonaws.com/anyadvisor/any_advisor.jpg'
+        # config.default_image_url = 'https://s3.amazonaws.com/anyadvisor/any_advisor.jpg'
 				img = Magick::Image.read(config.default_image_url).first
 
         # Create a new image in memory with transparent canvas
@@ -32,21 +32,21 @@ module AnyAdvisor
 
         img = img.dissolve(mark, 0.9, 0.9, Magick::CenterGravity)
         # img.write(config.export_image_path)
-        img.write('/tmp/image.jpg')
+        img.write(config.export_image_path)
 
         Aws.config.update({
           region: config.aws_region,
-          credentials: Aws::Credentials.new('123', '123'),
+          credentials: Aws::Credentials.new(config.aws_akid, config.aws_secret)
         })
 
         begin
           file_name = "testing-#{Random.rand(10000)}"
 
-          s3 = Aws::S3::Resource.new(region:'us-east-1')
-          obj = s3.bucket('anyadvisor').object(file_name + '.jpg')
-          obj.upload_file('/tmp/image.jpg', acl: 'public-read')
+          s3 = Aws::S3::Resource.new(region: config.aws_region)
+          obj = s3.bucket(config.aws_bucket).object(file_name + '.jpg')
+          obj.upload_file(config.export_image_path, acl: 'public-read')
 
-          image_url = obj.public_url
+          obj.public_url
 
         rescue Aws::S3::Errors::ServiceError => e
           e.message
