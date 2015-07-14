@@ -12,7 +12,7 @@ module AnyAdvisor
       @default_image_url = nil
       @point_size = 50
       @font_color = "#fff"
-      @truncation_limit = 20o
+      @truncation_limit = 20
       @font_family = 'Times'
       @aws_region = 'us-east-1'
       @aws_akid = '12345678'
